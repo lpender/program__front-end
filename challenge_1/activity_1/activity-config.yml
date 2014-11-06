@@ -1,5 +1,5 @@
-title: "Activity title."
-description: "Description for the activity."
+title: Sample Activity
+description: This is a sample activity.
 resources:
   1: "http://www.example.com"
   2: "http://www.google.com"
