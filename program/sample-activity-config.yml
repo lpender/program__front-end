@@ -1,0 +1,11 @@
+title: Sample Activity
+description:
+  Do not change or delete this file.  This file will be updated upstream with
+  the possible properties that you can use in activity configuration.
+
+  To get started with the first activity, create a copy of this file called
+  "activity-config-1-1.yml".
+published: false
+resources:
+  1: "http://www.example.com"
+  2: "http://www.google.com"
