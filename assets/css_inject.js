@@ -1,1 +1,64 @@
-javascript:(function()%7B(function()%7B%22use%20strict%22%3Bfunction%20t()%7Bvar%20t%3D%24(%22body%22).html()%2Ce%3D%22%3Cdiv%20class%3D'challenge-environment%20activity-layout'%3E%3Cdiv%20class%3D'activity-layout__content%20activity-wrapper'%3E%3Cdiv%20class%3D'outer-container--narrow'%3E%3Cdiv%20class%3D'activity-instructions%20margin-top'%3E%22%2Bt%2B%22%3C%2Fdiv%3E%3C%2Fdiv%3E%3C%2Fdiv%3E%3C%2Fdiv%3E%22%3B%24(%22body%22).html(e)%7Dfunction%20e(t)%7Breturn%20new%20Promise(function(e)%7Bvar%20n%3Ddocument.createElement(%22script%22)%3Bn.type%3D%22text%2Fjavascript%22%2Cn.async%3D!0%2Cn.src%3Dt%2Cn.onload%3Dfunction()%7Be()%7D%2Cdocument.getElementsByTagName(%22head%22)%5B0%5D.appendChild(n)%7D)%7Dfunction%20n(t)%7Bvar%20e%3Ddocument.createElement(%22link%22)%3Be.href%3Dt%2Ce.rel%3D%22stylesheet%22%2Ce.type%3D%22text%2Fcss%22%2Cdocument.getElementsByTagName(%22head%22)%5B0%5D.appendChild(e)%7Dfunction%20i(t%2Cn)%7Bvar%20i%3D%5B%5D%3Bt.forEach(function(t)%7Bi.push(e(t))%7D)%2CPromise.all(i).then(function()%7Bn()%7D)%7Dvar%20a%3Ba%3D%7BexpectCss%3A%22http%3A%2F%2Flpender.github.io%2Fprogram__sample-program%2Fassets%2Fapplication.css%22%2CjQueryJs%3A%22https%3A%2F%2Fcode.jquery.com%2Fjquery-2.1.3.min.js%22%2CscriptTimeout%3A3e3%7D%2Cn(a.expectCss)%2Ci(%5Ba.jQueryJs%5D%2Ct)%7D)()%3B%7D)()
+(function () {
+  "use strict";
+
+  var config, body, testdiv;
+
+  // config
+  config = {
+    expectCss: "http://lpender.github.io/program__sample-program/assets/application.css",
+    jQueryJs: "https://code.jquery.com/jquery-2.1.3.min.js",
+    scriptTimeout: 3000
+  };
+
+  function addDomStuff() {
+    var html = $('body').html();
+    var newHtml = "<div class='challenge-environment activity-layout'>" +
+                  "<div class='activity-layout__content activity-wrapper'>" +
+                  "<div class='outer-container--narrow'>" +
+                  "<div class='activity-instructions margin-top'>" +
+                    html +
+                  "</div></div></div></div>";
+
+    $('body').html(newHtml);
+  };
+
+  function loadScript(url) {
+    return new Promise(function(resolve, reject) {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = url;
+
+      script.onload = function() {
+        resolve();
+      };
+
+      document.getElementsByTagName("head")[0].appendChild(script);
+    });
+  };
+
+  function loadStylesheet(url) {
+    var link = document.createElement("link");
+    link.href = url;
+    link.rel = "stylesheet";
+    link.type = "text/css";
+
+    document.getElementsByTagName("head")[0].appendChild(link);
+  };
+
+  function loadScripts(urls, callback) {
+    var promises = [];
+
+    urls.forEach(function(url) {
+      promises.push(loadScript(url));
+    });
+
+    Promise.all(promises).then(function () {
+      callback();
+    });
+  };
+
+  loadStylesheet(config.expectCss);
+  loadScripts([config.jQueryJs], addDomStuff);
+
+})();
