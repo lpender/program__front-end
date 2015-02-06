@@ -1,5 +1,6 @@
 title: Sample Challenge
 description: This is a sample challenge
+published: false
 resources:
   1: "http://www.example.com"
   2: "http://www.google.com"
